@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletResponse;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,15 @@ public class XpuController {
     @Autowired
     private XpuService xpuService;
 
+    @GetMapping("/test")
+    public String test2(Model model) throws Exception {
+        List<XpuDto> list = xpuService.boardList();
+        log.info("aaa"+list);
+        model.addAttribute("list",list);
+        return "test";
+    }
+
+
     @GetMapping("/")
     public String test(Model model) throws Exception {
         List<XpuDto> list = xpuService.boardList();
@@ -29,28 +39,39 @@ public class XpuController {
         return "index";
     }
 
-    @ResponseBody
-    @GetMapping("/test")
-    public List<XpuDto> test2(Model model) throws Exception {
-        List<XpuDto> list = xpuService.boardList();
-        log.info("aaa"+list);
-        model.addAttribute("list",list);
-//        log.info(list.); , @RequestParam String list
-        return list;
-    }
 
-    @GetMapping("/ajax.do")
+
+    @GetMapping("ajax.do")
     @ResponseBody
-    public void ajax(HttpServletResponse response, List<XpuDto> list) throws Exception {
+    public void ajax(HttpServletResponse response, @RequestParam String time, String type, int no, int per) throws Exception {
         log.info("호출완");
         Gson gson = new Gson();
 
-        Map<String, Object> data = new HashMap<>();
+        Map<String, Object> data = new LinkedHashMap<>();
 
-        data.put("rs", list);
-        data.put("msg", "json data");
-        data.put("name", "ljbjh");
+        data.put("time", time);
+        data.put("type", type);
+        data.put("no", no);
+        data.put("per", per);
+        log.info(time+type+no+per);
+//        log.info(name);
+        response.getWriter().print(gson.toJson(data));
+    }
 
+    @GetMapping("/test/ajax.do")
+    @ResponseBody
+    public void ajax2(HttpServletResponse response, @RequestParam String time, String type, int no, int per) throws Exception {
+        log.info("호출완");
+        Gson gson = new Gson();
+
+        Map<String, Object> data = new LinkedHashMap<>();
+
+        data.put("time", time);
+        data.put("type", type);
+        data.put("no", no);
+        data.put("per", per);
+        log.info(time+type+no+per);
+//        log.info(name);
         response.getWriter().print(gson.toJson(data));
     }
 }

@@ -10,33 +10,46 @@
 <%--<script type="text/javascript">--%>
 <%--    var list = '<c:out value="${list[0]}"/>';--%>
 <%--    console.log(list);--%>
-
-
 <%--</script>--%>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script>
-    const list = '<c:out value="${list}"/>';
+
+
     $(function () {
-        $.ajax({
-            url: "/ajax.do", // 호출할 주소
-            data: {
-                name : list
-                <%--type: '<c:out value="${list[0].type}"/>',--%>
-                <%--no: '<c:out value="${list[0].no}"/>',--%>
-                <%--per: '<c:out value="${list[0].per}"/>'--%>
-            }, // 넘길 데이터
-            dataType: "json", // 데이터 타입 json으로 설정 <- 이걸 안하면 밑에 처럼 JSON.parse를 해야함
-            success: function(data) { // 결과 받기
-                //data = JSON.parse(data); // JSON 형태로 파싱
-                console.log(data);
-            }
-        });
+        timer = setInterval( function () {
+            const time = '<c:out value="${list[0].time}"/>'
+            const type = '<c:out value="${list[0].type}"/>'
+            const no = '<c:out value="${list[0].no}"/>'
+            const per = '<c:out value="${list[0].per}"/>'
+            // const xpuDto= {
+            //     time: time,
+            //     type : type,
+            //     no : no,
+            //     per : per
+            // };
+            $.ajax({
+                // type: "POST", //전송 방식
+                url: "/ajax.do", // 호출할 주소
+                data: {
+                    time: time,
+                    type : type,
+                    no : no,
+                    per : per
+                }, // 넘길 데이터
+                dataType: "json", // 데이터 타입 json으로 설정 <- 이걸 안하면 밑에 처럼 JSON.parse를 해야함
+                success: function(data) { // 결과 받기
+                    //data = JSON.parse(data); // JSON 형태로 파싱
+                    console.log(data);
+                }
+
+            });
+        }, 1000);
     });
+
 </script>
 <div class="container">
     <br>
     <h2>조회 목록</h2>
-
 
     <table class="table table-striped">
         <thead>
@@ -58,11 +71,7 @@
             </tr>
         </c:forEach>
         </tbody>
-
     </table>
-
-
-
 </div>
 
 </body>
