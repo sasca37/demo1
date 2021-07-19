@@ -34,6 +34,11 @@
     google.charts.load('current', {packages: ['corechart']});
     google.charts.setOnLoadCallback(function(){ drawChart(new_option)});
 
+
+    var Gpu1;
+    var Gpu0;
+    var Cpu;
+
         function getXpu() {
             timer = setInterval( function () {
         $.ajax({
@@ -56,9 +61,9 @@
 
         function getXpuCallback(obj) {
 
-        var Gpu0= obj[0].per;
-        var Gpu1= obj[1].per;
-        var Cpu = obj[2].per;
+         Gpu0= obj[0].per;
+         Gpu1= obj[1].per;
+         Cpu = obj[2].per;
 
 
         console.log("Gpu0:",Gpu0," Gpu1:",Gpu1," Cpu:",Cpu);
@@ -112,11 +117,15 @@
             o.data.removeRow(0);
         }
 
-        var value = parseInt('<c:out value="${list[0].per}"/>')
+         var value = Cpu;
+         var value1 = Gpu0;
+         var value2 = Gpu1;
         // var value = 0;
          var maxValue = o.options.vAxis.maxValue;
 
         o.data.insertRows(o.data.getNumberOfRows(), [[getNowTime(), value]]);
+        o.data.insertRows(o.data.getNumberOfRows(), [[getNowTime(), value1]]);
+        o.data.insertRows(o.data.getNumberOfRows(), [[getNowTime(), value2]]);
         drawChart(o);
     }
 
