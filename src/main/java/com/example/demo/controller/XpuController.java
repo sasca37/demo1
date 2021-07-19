@@ -85,4 +85,9 @@ public class XpuController {
 
         return list;
     }
+
+    @GetMapping("/test3")
+    public String test3() {
+        return "test3";
+    }
 }
