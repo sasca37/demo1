@@ -9,7 +9,7 @@
         *
         FROM
         xpudata
-        ORDER BY time DESC limit 3;
+        ORDER BY time DESC, no ASC limit 3;
     </select>
 
 </mapper>
