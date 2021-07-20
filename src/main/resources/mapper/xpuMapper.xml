@@ -4,7 +4,7 @@
 
 <mapper namespace="com.example.demo.dao.XpuDao">
 
-    <select id="boardList" resultType="XpuDto">
+    <select id="xpuList" resultType="XpuDto">
         SELECT
         *
         FROM
@@ -12,4 +12,19 @@
         ORDER BY time DESC, no ASC limit 3;
     </select>
 
+    <select id="boardList" resultType="XpuDto">
+        SELECT
+            *
+        FROM
+            xpudata
+        ORDER BY time DESC, no ASC
+
+
+    </select>
+    <select id="boardListCnt"  resultType="int">
+        SELECT
+        COUNT(*)
+        FROM
+        XPUDATA
+    </select>
 </mapper>
