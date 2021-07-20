@@ -39,10 +39,8 @@ public class XpuController {
 
         return list;
     }
-    // 막대 그래프 화면
     @GetMapping("/staticGraph")
     public String test3() {
-        log.info("@@@@@@@@@@");
         return "staticGraph";
     }
 
@@ -72,8 +70,6 @@ public class XpuController {
     @ResponseBody
     @GetMapping(value = "/excel")
     public void doDownloadFile(HttpServletResponse response) throws IOException {
-
-        log.info("파일 다운로드 프로세스");
 
         String fileName = "data.xlsx";
 
