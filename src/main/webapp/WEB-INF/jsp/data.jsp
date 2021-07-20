@@ -83,7 +83,32 @@
 
     </table>
 
-
+    <ul class="pagination h-100 justify-content-center align-items-center">
+        <c:if test="${paging.prev}">
+            <li class="page-item">
+                <a class="page-link"  href='<c:url value="/data?page=${paging.startPage-1}"/>'>>이전</a>
+            </li>
+        </c:if>
+        <c:forEach begin="${paging.startPage}" end="${paging.endPage}" var="num">
+            <c:choose>
+                <c:when test="${cri.page eq num}">
+                    <li class="page-item active">
+                        <a class="page-link"  href='<c:url value="/data?page=${num}"/>'>>${num}</a>
+                    </li>
+                </c:when>
+                <c:otherwise>
+                    <li class="page-item">
+                        <a class="page-link" href='<c:url value="/data?page=${num}"/>'>>${num}</a>
+                    </li>
+                </c:otherwise>
+            </c:choose>
+        </c:forEach>
+        <c:if test="${paging.next && paging.endPage>0}">
+            <li class="page-item">
+                <a class="page-link" href='<c:set var="nextBtn" value="${paging.endPage+1}"/>'>>다음</a>
+            </li>
+        </c:if>
+    </ul>
 
 </div>
 

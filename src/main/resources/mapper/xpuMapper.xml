@@ -13,18 +13,20 @@
     </select>
 
     <select id="boardList" resultType="XpuDto">
+        <![CDATA[
         SELECT
             *
         FROM
             xpudata
         ORDER BY time DESC, no ASC
-
+        LIMIT #{pageStart}, #{perPageNum}
+        ]]>
 
     </select>
     <select id="boardListCnt"  resultType="int">
         SELECT
         COUNT(*)
         FROM
-        XPUDATA
+        xpudata
     </select>
 </mapper>
