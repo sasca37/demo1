@@ -28,7 +28,7 @@
             <li class="nav-item"><a class="nav-link" href="/data">데이터</a></li>
         </ul>
         <ul class="navbar-nav">
-            <li class="nav-item"><a class="nav-link" href="/staticGraph">엑셀 다운로드</a></li>
+            <li class="nav-item"><a class="nav-link" href="/excel">엑셀 다운로드</a></li>
         </ul>
     </div>
 </nav>

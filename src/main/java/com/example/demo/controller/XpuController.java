@@ -10,6 +10,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletResponse;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.util.List;
 
 @Controller
@@ -62,5 +67,34 @@ public class XpuController {
         log.info("list"+list);
         log.info("cri status : "+cri);
         return "data";
+    }
+
+    @ResponseBody
+    @GetMapping(value = "/excel")
+    public void doDownloadFile(HttpServletResponse response) throws IOException {
+
+        log.info("파일 다운로드 프로세스");
+
+        String fileName = "data.xlsx";
+
+        response.setContentType("application/octer-stream");
+        response.setHeader("Content-Transfer-Encoding", "binary;");
+        response.setHeader("Content-Disposition", "attachment; filename=\"" + fileName + "\"");
+        try {
+            OutputStream os = response.getOutputStream();
+            FileInputStream fis = new FileInputStream("\\home\\ubuntu\\Desktop\\eclipse\\workspace\\com\\" + fileName);
+
+            int count = 0;
+            byte[] bytes = new byte[8192];
+
+            while ((count = fis.read(bytes)) != -1 ) {
+                os.write(bytes, 0, count);
+            }
+
+            fis.close();
+            os.close();
+        } catch (FileNotFoundException ex) {
+            System.out.println("FileNotFoundException");
+        }
     }
 }
