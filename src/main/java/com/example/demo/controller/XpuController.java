@@ -47,7 +47,7 @@ public class XpuController {
     //데이터 화면
     @GetMapping("/data")
     public String data(Criteria cri, Model model) throws Exception {
-        // 페이징 전체 글 개수
+        // 페이징 전체 글  개수
         int boardListCnt = xpuService.boardListCnt(cri);
 
         // 페이징 객체
